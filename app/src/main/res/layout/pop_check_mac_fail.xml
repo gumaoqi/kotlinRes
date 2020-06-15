@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/gu_linearLayout_root_vertical"
+    android:background="@color/gu_pop_background">
+
+    <ImageView style="@style/gu_imageView_weight_vertical" />
+
+    <ImageView
+        android:id="@+id/pop_check_mac_fail_iv"
+        style="@style/gu_imageView_head" />
+
+    <ImageView style="@style/gu_imageView_weight_vertical" />
+
+    <TextView
+        android:id="@+id/pop_check_mac_fail_tv"
+        style="@style/gu_textView_center"
+        android:gravity="center"
+        android:text="网络请求中，请稍后" />
+
+    <ImageView style="@style/gu_imageView_weight_vertical" />
+
+    <Button
+        android:id="@+id/pop_check_mac_fail_bt"
+        style="@style/gu_button_wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</LinearLayout>

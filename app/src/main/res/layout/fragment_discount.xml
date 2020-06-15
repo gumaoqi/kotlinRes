@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/gu_linearLayout_root_vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_discount_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+
+    <ImageView style="@style/gu_recycler_headline_no_margin_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/fragment_discount_one_et"
+            style="@style/gu_editText_weight"
+            android:hint="请输入菜品名称"
+            android:maxLength="15"
+            android:maxLines="1" />
+
+        <Button
+            android:id="@+id/fragment_discount_one_bt"
+            style="@style/gu_button_wrap_content"
+            android:text="添加"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/fragment_discount_two_et"
+            style="@style/gu_editText_weight"
+            android:hint="请输入菜品标签，方便用于搜索"
+            android:maxLength="15"
+            android:maxLines="1" />
+
+        <Button
+            android:id="@+id/fragment_discount_two_bt"
+            style="@style/gu_button_wrap_content"
+            android:text="添加"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/fragment_discount_three_et"
+            style="@style/gu_editText_weight"
+            android:digits="0123456789"
+            android:hint="请输入菜品价格"
+            android:maxLength="15"
+            android:maxLines="1" />
+
+        <Button
+            android:id="@+id/fragment_discount_three_bt"
+            style="@style/gu_button_wrap_content"
+            android:text="添加" />
+    </LinearLayout>
+
+</LinearLayout>

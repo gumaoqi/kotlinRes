@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/gu_linearLayout_root_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/gu_textView_center"
+            android:text="所有菜品列表" />
+
+        <ImageView style="@style/gu_recycler_headline_no_margin_horizontal" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_recommend_one_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView style="@style/gu_recycler_headline_no_margin_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/fragment_recommend_et"
+                style="@style/gu_editText_weight"
+                android:hint="请输入菜品名称或标签" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/fragment_recommend_number_et"
+                style="@style/gu_editText_weight"
+                android:digits="0123456789"
+                android:hint="请输入菜品数量"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/fragment_recommend_note_et"
+                style="@style/gu_editText_weight"
+                android:hint="请输入备注"
+                android:inputType="number" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <ImageView style="@style/gu_recycler_headline_vertical" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/gu_textView_center"
+            android:text="已点菜品列表" />
+
+        <ImageView style="@style/gu_recycler_headline_no_margin_horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_recommend_two_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView style="@style/gu_recycler_headline_no_margin_horizontal" />
+
+        <Button
+            android:id="@+id/fragment_recommend_bt"
+            style="@style/gu_button_wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="买单" />
+    </LinearLayout>
+
+
+</LinearLayout>
