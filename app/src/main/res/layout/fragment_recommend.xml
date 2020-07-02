@@ -53,8 +53,7 @@
             <EditText
                 android:id="@+id/fragment_recommend_note_et"
                 style="@style/gu_editText_weight"
-                android:hint="请输入备注"
-                android:inputType="number" />
+                android:hint="请输入备注" />
         </LinearLayout>
 
 

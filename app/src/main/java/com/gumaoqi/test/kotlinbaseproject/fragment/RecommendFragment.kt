@@ -17,15 +17,15 @@ import com.gumaoqi.test.kotlinbaseproject.base.BaseFragment
 import com.gumaoqi.test.kotlinbaseproject.base.GuApplication
 import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg
 import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.BUY_ORDER_BACK
+import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.DELETE_ORDER_BACK
+import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.GO_TO_DELETE_ORDER
 import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.RECOMMEND_GET_FOOD_BACK
+import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.RECOMMEND_GET_ORDER_AND_BUY_BACK
 import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.RECOMMEND_GET_ORDER_BACK
 import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.RECOMMEND_GO_TO_ORDER_FOOD
 import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.RECOMMEND_ORDER_FOOD_BACK
 import com.gumaoqi.test.kotlinbaseproject.base.HandlerArg.Companion.SUCCESS
-import com.gumaoqi.test.kotlinbaseproject.entity.AddBean
-import com.gumaoqi.test.kotlinbaseproject.entity.GetBean
-import com.gumaoqi.test.kotlinbaseproject.entity.Result
-import com.gumaoqi.test.kotlinbaseproject.entity.UpdateBean
+import com.gumaoqi.test.kotlinbaseproject.entity.*
 import com.gumaoqi.test.kotlinbaseproject.kt.show
 import com.gumaoqi.test.kotlinbaseproject.tool.*
 import com.gumaoqi.test.kotlinbaseproject.viewmodel.RecommendFVM
@@ -75,6 +75,16 @@ class RecommendFragment : BaseFragment(), TextWatcher {
                         "暂无已点菜品数据".show()
                     }
                 }
+                RECOMMEND_GET_ORDER_AND_BUY_BACK -> {
+                    val getBean = msg.obj as GetBean
+                    vm.orderList = getBean.results as ArrayList<Result>
+                    vm.orderAdapter.setList(vm.orderList)
+                    if (getBean.results.isEmpty()) {
+                        "暂无已点菜品数据".show()
+                    } else {
+                        buyParam()
+                    }
+                }
                 RECOMMEND_GO_TO_ORDER_FOOD -> {
                     val result = msg.obj as Result
                     addOrder(result)
@@ -97,6 +107,20 @@ class RecommendFragment : BaseFragment(), TextWatcher {
                     } else {
                         "买单成功".show()
                         setMessageToActivity(HandlerArg.CHANGE_OME, 0)
+                    }
+                }
+                GO_TO_DELETE_ORDER -> {
+                    val result = msg.obj as Result
+                    Snackbar.make(fragment_recommend_bt, "确认进行退菜操作吗？", Snackbar.LENGTH_LONG)
+                            .setAction("退菜") {
+                                deleteOrderParam(result)
+                            }.show()
+                }
+                DELETE_ORDER_BACK -> {
+                    getOrderParam()
+                    val deleteBean = msg.obj as DeleteBean
+                    if (deleteBean.msg != null && deleteBean.msg == "ok") {
+                        "退菜成功".show()
                     }
                 }
             }
@@ -123,7 +147,8 @@ class RecommendFragment : BaseFragment(), TextWatcher {
         fragment_recommend_bt.setOnClickListener {
             Snackbar.make(fragment_recommend_bt, "确认买单吗？", Snackbar.LENGTH_LONG)
                     .setAction("买单") {
-                        buyParam()
+                        //                        buyParam()
+                        getOrderAndBuyParam()
                     }.show()
         }
     }
@@ -148,7 +173,7 @@ class RecommendFragment : BaseFragment(), TextWatcher {
         note = if (note.isEmpty()) {
             "备注：无"
         } else {
-            "备注$note"
+            "备注：$note"
         }
         Snackbar.make(fragment_recommend_bt, "确认添加\"$number\"份名称为：\"${result.c1}\"," +
                 "的菜品吗？", Snackbar.LENGTH_LONG)
@@ -178,6 +203,16 @@ class RecommendFragment : BaseFragment(), TextWatcher {
     }
 
     /**
+     *添加参数去获取已点菜品
+     */
+    private fun getOrderAndBuyParam() {
+        val paramMap = HashMap<String, String>()
+        paramMap["c6"] = S.getString("order")
+        paramMap["tablename"] = "res2_order"
+        N.getByRetrofit(paramMap, gHandler, "获取已点菜品", HandlerArg.RECOMMEND_GET_ORDER_AND_BUY_BACK)
+    }
+
+    /**
      *添加参数去点餐
      */
     private fun orderParam(name: String, price: String, number: String, note: String) {
@@ -193,9 +228,10 @@ class RecommendFragment : BaseFragment(), TextWatcher {
         paramMap["c9"] = "0"
         paramMap["printid"] = S.getString("c4")
         paramMap["printcontent"] = name + " X " + number +
-                "\n" + "下单时间：" + C.longTimeChangeYear(System.currentTimeMillis()) +
+                "\n" + note +
+                "\n" + "桌子名称：" + S.getString("tableName") +
                 "\n" + "操作员手机编号：" + paramMap["c7"] +
-                "\n" + note
+                "\n" + "时间：" + C.longTimeChangeYear(System.currentTimeMillis())
 
         L.i(TAG, "打印机id:" + paramMap["printid"] +
                 "\n" + "打印机打印的内容为：" + paramMap["printcontent"])
@@ -222,12 +258,33 @@ class RecommendFragment : BaseFragment(), TextWatcher {
         }
         printContent += "\n--------------------" +
                 "\n" + "合计：$money" +
+                "\n" + "桌子名称：" + S.getString("tableName") +
+                "\n" + "操作员手机编号：" + paramMap["c7"] +
                 "\n" + "时间：${C.longTimeChangeYear(System.currentTimeMillis())}"
         paramMap["printcontent"] = printContent
         L.i(TAG, "打印机id:" + paramMap["printid"] +
                 "\n" + "打印机打印的内容为：" + paramMap["printcontent"])
         paramMap["tablename"] = "res2_table"
         N.updateByRetrofit(paramMap, gHandler, "买单", HandlerArg.BUY_ORDER_BACK)
+        addPrintParam(paramMap["printid"]!!, paramMap["printcontent"]!!)
+    }
+
+    /**
+     *添加参数去退菜
+     */
+    private fun deleteOrderParam(result: Result) {
+        val paramMap = HashMap<String, String>()
+        paramMap["objectid"] = result.objectId
+        paramMap["printid"] = S.getString("c5")
+        paramMap["printcontent"] = "退菜：" + result.c1 + " X " + result.c3 +
+                "\n" + "桌子名称：" + S.getString("tableName") +
+                "\n" + "操作员手机编号：" + paramMap["c7"] +
+                "\n" + "时间：" + C.longTimeChangeYear(System.currentTimeMillis())
+
+        L.i(TAG, "打印机id:" + paramMap["printid"] +
+                "\n" + "打印机打印的内容为：" + paramMap["printcontent"])
+        paramMap["tablename"] = "res2_order"
+        N.deleteByRetrofit(paramMap, gHandler, "点餐", HandlerArg.DELETE_ORDER_BACK)
         addPrintParam(paramMap["printid"]!!, paramMap["printcontent"]!!)
     }
 

@@ -79,6 +79,7 @@ class HomeFragment : BaseFragment() {
                         } else {
                             S.setString("order", result.objectId + result.c3)
                             S.setString("tableId", result.objectId)
+                            S.setString("tableName", result.c1)
                             setMessageToActivity(HandlerArg.CHANGE_FOUR, 0)
                         }
                     }

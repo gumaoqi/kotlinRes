@@ -60,7 +60,8 @@
             android:id="@+id/fragment_gu_bottom_navigation_item_four_ll"
             style="@style/gu_linearLayout_root_vertical"
             android:layout_width="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/fragment_gu_bottom_navigation_icon_four_iv"

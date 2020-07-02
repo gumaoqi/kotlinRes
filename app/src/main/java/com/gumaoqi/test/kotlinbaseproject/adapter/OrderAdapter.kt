@@ -45,16 +45,15 @@ class OrderAdapter : BaseAdapter() {
                 viewHolder.itemItemOneTv.text = "菜品名称：${result.c1}"
                 viewHolder.itemItemTwoTv.text = "菜品单价：${result.c2}"
                 viewHolder.itemItemThreeTv.text = "菜品数量：${result.c3}"
-                viewHolder.itemItemThreeTv.text = "菜品总价：${result.c4}"
-                viewHolder.itemItemFourTv.text = "下单时间：${result.createdAt}"
-                viewHolder.itemItemFiveTv.visibility = View.GONE
+                viewHolder.itemItemFourTv.text = "菜品总价：${result.c4}"
+                viewHolder.itemItemFiveTv.text = "下单时间：${result.createdAt}"
                 viewHolder.itemItemSixTv.visibility = View.GONE
                 viewHolder.itemItemSevenTv.visibility = View.GONE
                 viewHolder.itemItemLl.setOnClickListener {
-//                    val message = gHandler.obtainMessage()
-//                    message.arg1 = HandlerArg.GO_TO_DELETE_FOOD
-//                    message.obj = result
-//                    gHandler.sendMessageDelayed(message, 100)
+                    val message = gHandler.obtainMessage()
+                    message.arg1 = HandlerArg.GO_TO_DELETE_ORDER
+                    message.obj = result
+                    gHandler.sendMessageDelayed(message, 100)
                 }
             }
             is LoadMoreViewHolder -> {

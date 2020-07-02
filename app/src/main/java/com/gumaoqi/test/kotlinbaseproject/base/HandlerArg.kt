@@ -51,5 +51,8 @@ class HandlerArg {
         const val RECOMMEND_ORDER_FOOD_BACK = 10046
         const val RECOMMEND_GET_ORDER_BACK = 10047
         const val BUY_ORDER_BACK = 10048
+        const val GO_TO_DELETE_ORDER = 10049
+        const val DELETE_ORDER_BACK = 10050
+        const val RECOMMEND_GET_ORDER_AND_BUY_BACK=10051
     }
 }

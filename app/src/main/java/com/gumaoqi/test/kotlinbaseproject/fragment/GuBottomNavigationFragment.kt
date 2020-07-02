@@ -65,8 +65,8 @@ class GuBottomNavigationFragment : BaseFragment() {
                 R.id.fragment_gu_bottom_navigation_item_two_ll, "桌子", R.drawable.checkbox_pressed, R.drawable.checkbox_normal))
         vm.guBottomNavigationBeanList.add(GuBottomNavigationBean(
                 R.id.fragment_gu_bottom_navigation_item_three_ll, "菜品", R.drawable.checkbox_pressed, R.drawable.checkbox_normal))
-//        vm.guBottomNavigationBeanList.add(GuBottomNavigationBean(
-//                R.id.fragment_gu_bottom_navigation_item_four_ll, "点餐", R.drawable.checkbox_pressed, R.drawable.checkbox_normal))
+        vm.guBottomNavigationBeanList.add(GuBottomNavigationBean(
+                R.id.fragment_gu_bottom_navigation_item_four_ll, "点餐", R.drawable.checkbox_pressed, R.drawable.checkbox_normal))
         vm.guBottomNavigationBeanList.add(GuBottomNavigationBean(
                 R.id.fragment_gu_bottom_navigation_item_five_ll, "我的", R.drawable.checkbox_pressed, R.drawable.checkbox_normal))
     }

@@ -58,7 +58,7 @@ class HomeActivity : BaseActivity() {
                 }
                 CHANGE_FOUR -> {
                     title_back.text = ""
-                    title_title.text = "推荐"
+                    title_title.text = "点餐"
                     changeFragment(R.id.activity_home_content_fl, vm.recommendFragment)
                 }
                 CHANGE_FIVE -> {

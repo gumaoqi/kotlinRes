@@ -31,10 +31,11 @@ class LoadingActivity : BaseActivity() {
     private fun setLayout() {
         title_root_ll.visibility = View.GONE
         PermissionX.init(this)
-                .permissions(Manifest.permission.CALL_PHONE,//打电话的权限
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE, //对存储的读写
-                        Manifest.permission.CAMERA, //相机
-                        Manifest.permission.ACCESS_FINE_LOCATION //精确位置
+                .permissions(
+//                        Manifest.permission.CALL_PHONE,//打电话的权限
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE//对存储的读写
+//                        Manifest.permission.CAMERA, //相机
+//                        Manifest.permission.ACCESS_FINE_LOCATION //精确位置
 //                        Manifest.permission.RECORD_AUDIO, //麦克风
 //                        Manifest.permission.ACCESS_COARSE_LOCATION//大致位置
                 )
